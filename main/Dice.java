@@ -1,3 +1,4 @@
+package main;
 import java.util.Random;
 
 //6 sided die with values ranging from 1- 6

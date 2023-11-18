@@ -1,3 +1,4 @@
+package main;
 
 
 //class for player attributes
@@ -56,5 +57,5 @@ class Player {
         int defendRoll = defendDice.roll();
         return defendRoll * strength;
     }
-    
+
 }

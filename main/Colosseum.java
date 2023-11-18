@@ -1,3 +1,4 @@
+package main;
 
 public class Colosseum {
 
@@ -33,7 +34,9 @@ public class Colosseum {
                 System.out.println(firstPlayer.getName() + " is victorious!");
                 break;
             }
-            swapPlayers(firstPlayer, secondPlayer);
+            Player temp = firstPlayer;
+            firstPlayer = secondPlayer;
+            secondPlayer = temp;
         }
     }
 
@@ -47,12 +50,6 @@ public class Colosseum {
         printTurnDetails(attacker, defender, damage, defense);
     }
 
-    private static void swapPlayers(Player firstPlayer, Player secondPlayer) {
-        // Swapping players for the next turn
-        Player temp = firstPlayer;
-        firstPlayer = secondPlayer;
-        secondPlayer = temp;
-    }
 
     //print function to show the flow of battle
     private static void printTurnDetails(Player attacker, Player defender, int damage, int defense) {
