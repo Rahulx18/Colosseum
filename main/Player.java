@@ -1,13 +1,12 @@
 package main;
 
-
 //class for player attributes
 class Player {
     private String name;
     private int health;
     private int strength;
     private int attack;
-
+    
     //constructor 
     public Player(String name,int health, int strength, int attack) {
         this.name = name;
@@ -46,11 +45,10 @@ class Player {
         return health > 0;
     }
 
-     // Method to calculate damage
-     public int calculateDamage(Dice attackDice) {
+    public int calculateDamage(Dice attackDice) {
         int attackRoll = attackDice.roll();
-        return attackRoll * attack;
     }
+    
 
     // Method to calculate defense
     public int calculateDefense(Dice defendDice) {

@@ -18,14 +18,16 @@ public class Colosseum {
         simulateBattle(firstPlayer, getOtherPlayer(firstPlayer, playerA, playerB), attackDice, defendDice);
     }
 
+
     private static Player determineFirstPlayer(Player playerA, Player playerB) {
         return (playerA.getHealth() <= playerB.getHealth()) ? playerA : playerB;
     }
-
     private static Player getOtherPlayer(Player currentPlayer, Player playerA, Player playerB) {
         return (currentPlayer == playerA) ? playerB : playerA;
     }
 
+
+    
     // Method to simulate the battle between two players
     private static void simulateBattle(Player firstPlayer, Player secondPlayer, Dice attackDice, Dice defendDice) {
         while (firstPlayer.isAlive() && secondPlayer.isAlive()) {
@@ -45,7 +47,7 @@ public class Colosseum {
         int damage = attacker.calculateDamage(attackDice);
         int defense = defender.calculateDefense(defendDice);
 
-        defender.takeDamage(Math.max(0, damage - defense));
+        defender.takeDamage(Math.max(1, damage - defense));
 
         printTurnDetails(attacker, defender, damage, defense);
     }
@@ -53,9 +55,8 @@ public class Colosseum {
 
     //print function to show the flow of battle
     private static void printTurnDetails(Player attacker, Player defender, int damage, int defense) {
-        System.out.println(attacker.getName() + " attacks, " + defender.getName() + " defends.");
-        System.out.println(attacker.getName() + "'s damage: " + damage + ", " +
-                defender.getName() + "'s defense: " + defense);
-        System.out.println(defender.getName() + "'s health reduced to: " + defender.getHealth());
+        System.out.println(String.format("%s attacks %s. Damage dealt by %s: %d, Defense of %s: %d. %s's health reduced to: %d",
+        attacker.getName(), defender.getName(),attacker.getName(), damage,defender.getName(), defense, defender.getName(), defender.getHealth()));
+
     }
 }
