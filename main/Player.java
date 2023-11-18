@@ -47,6 +47,10 @@ class Player {
 
     public int calculateDamage(Dice attackDice) {
         int attackRoll = attackDice.roll();
+        int calculatedDamage =attackRoll * attack;
+        
+        
+        return calculatedDamage;
     }
     
 
