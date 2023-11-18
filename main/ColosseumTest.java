@@ -4,49 +4,56 @@ import static org.junit.Assert.*;
 
 public class ColosseumTest {
 
+    private static final int INITIAL_HEALTH = 100;
+    private static final int INITIAL_STRENGTH = 10;
+    private static final int INITIAL_ATTACK = 5;
+
     @Test
-    public void testTakeDamage() {
-        Player player = new Player("TestPlayer", 100, 10, 5);
-        player.takeDamage(20);
-        assertEquals(80, player.getHealth());
+    public void testTakeDamage() {  //Damage taken calculations and edge cases
+
+        Player player = new Player("TestPlayer", INITIAL_HEALTH, INITIAL_STRENGTH, INITIAL_ATTACK); //setup
+        player.takeDamage(20); // call
+        assertEquals(INITIAL_HEALTH - 20, player.getHealth()); //verify 
         
-        // Ensure health doesn't go below 0
+        
         player.takeDamage(200);
         assertEquals(0, player.getHealth());
     }
 
     @Test
-    public void testIsAlive() {
-        Player alivePlayer = new Player("AlivePlayer", 50, 5, 10);
-        Player deadPlayer = new Player("DeadPlayer", 0, 5, 10);
+    public void testIsAlive() { //Testing isAlive function
+
+
+        Player alivePlayer = new Player("AlivePlayer", 50, INITIAL_STRENGTH, INITIAL_ATTACK);
+        Player deadPlayer = new Player("DeadPlayer", 0, INITIAL_STRENGTH, INITIAL_ATTACK);
 
         assertTrue(alivePlayer.isAlive());
         assertFalse(deadPlayer.isAlive());
     }
 
     @Test
-    public void testCalculateDamage() {
-        Dice TestAtkDice = new Dice() {
+    public void testCalculateDamage() {     // Damage calculation
+        Dice testAtkDice = new Dice() {
             @Override
             public int roll() {
-                return 3; 
+                return 3;   //test value
             }
         };
 
-        Player player = new Player("TestPlayer", 100, 10, 5);
-        assertEquals(15, player.calculateDamage(TestAtkDice));
+        Player player = new Player("TestPlayer", INITIAL_HEALTH, INITIAL_STRENGTH, INITIAL_ATTACK);
+        assertEquals(testAtkDice.roll() * INITIAL_ATTACK, player.calculateDamage(testAtkDice));
     }
 
     @Test
-    public void testCalculateDefense() {
-        Dice TestDefDice = new Dice() {
+    public void testCalculateDefense() {        // Defense calculation
+        Dice testDefDice = new Dice() {
             @Override
             public int roll() {
-                return 2;
+                return 2; //test value
             }
         };
 
-        Player player = new Player("TestPlayer", 100, 10, 5);
-        assertEquals(20, player.calculateDefense(TestDefDice));
+        Player player = new Player("TestPlayer", INITIAL_HEALTH, INITIAL_STRENGTH, INITIAL_ATTACK);
+        assertEquals(testDefDice.roll() * INITIAL_STRENGTH, player.calculateDefense(testDefDice));
     }
 }
