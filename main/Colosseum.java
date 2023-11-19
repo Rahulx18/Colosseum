@@ -2,7 +2,8 @@ package main;
 
 public class Colosseum {
 
-    private static final int MIN_DMG=1;  //adjust accordingly
+    private static final int MIN_DMG = 1;  // Adjust accordingly for game balancing
+
     public static void main(String[] args) {
         // Creating two players (health, strength, attack) and dice objects
         Player playerA = new Player("Player A", 50, 5, 10);
@@ -11,7 +12,6 @@ public class Colosseum {
         Dice attackDice = new Dice();
         Dice defendDice = new Dice();
 
-
         // Determining the first player based on their initial health
         Player firstPlayer = determineFirstPlayer(playerA, playerB);
 
@@ -19,17 +19,15 @@ public class Colosseum {
         simulateBattle(firstPlayer, getOtherPlayer(firstPlayer, playerA, playerB), attackDice, defendDice);
     }
 
-
-
+    // Player A selected in cases of equal health
     private static Player determineFirstPlayer(Player playerA, Player playerB) {
         return (playerA.getHealth() <= playerB.getHealth()) ? playerA : playerB;
     }
+
     private static Player getOtherPlayer(Player currentPlayer, Player playerA, Player playerB) {
         return (currentPlayer == playerA) ? playerB : playerA;
     }
 
-
-    
     // Method to simulate the battle between two players
     private static void simulateBattle(Player firstPlayer, Player secondPlayer, Dice attackDice, Dice defendDice) {
         while (firstPlayer.isAlive() && secondPlayer.isAlive()) {
@@ -44,27 +42,24 @@ public class Colosseum {
         }
     }
 
-
     // Method to simulate a player's turn in the battle
     private static void playerTurn(Player attacker, Player defender, Dice attackDice, Dice defendDice) {
         int damage = attacker.calculateDamage(attackDice);
         int defense = defender.calculateDefense(defendDice);
 
-
         defender.takeDamage(Math.max(MIN_DMG, damage - defense));
-        /* Minumum damage taken will always be present to avoid infinite loops in cases where 
-        strength >> atk leading to consistently zero damage 
-        value can be changed depending on game balancing*/
+        // Minimum damage taken is always present to avoid infinite loops
+        // in cases where strength >> attack, leading to consistently zero damage
+        // Value can be changed depending on game balancing
 
         printTurnDetails(attacker, defender, damage, defense);
     }
 
-
-    
-    //print function to show the flow of battle
+    // Print function to show the flow of battle
     private static void printTurnDetails(Player attacker, Player defender, int damage, int defense) {
-        System.out.println(String.format("%s attacks %s. Damage dealt by %s: %d, Defense of %s: %d. %s's health reduced to: %d",
-        attacker.getName(), defender.getName(),attacker.getName(), damage,defender.getName(), defense, defender.getName(), defender.getHealth()));
-
+        System.out.println(String.format(
+                "%s attacks %s. Damage dealt by %s: %d, Defense of %s: %d. %s's health reduced to: %d",
+                attacker.getName(), defender.getName(), attacker.getName(), damage, defender.getName(), defense,
+                defender.getName(), defender.getHealth()));
     }
 }

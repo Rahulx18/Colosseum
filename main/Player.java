@@ -1,24 +1,22 @@
 package main;
-
-//class for player attributes
+// Represents a player in the Colosseum with health, strength, and attack attributes
 class Player {
     private String name;
-    private int health;
-    private int strength;
-    private int attack;
-    
-    //constructor 
-    public Player(String name,int health, int strength, int attack) {
+    private int health, strength, attack;
+
+    // Constructor to initialize player attributes
+    public Player(String name, int health, int strength, int attack) {
         this.name = name;
         this.health = health;
         this.strength = strength;
         this.attack = attack;
     }
 
-    //getter methods
+    // Getter method for the player's name
     public String getName() {
         return name;
     }
+
     public int getHealth() {
         return health;
     }
@@ -31,33 +29,23 @@ class Player {
         return attack;
     }
 
-
-    //method to decrease health
+    // Reduces the player's health by the given damage, ensuring it doesn't go below 0
     public void takeDamage(int damage) {
-        health -= damage;
-        if (health < 0) {
-            health = 0;
-        }
+        health = Math.max(0, health - damage);
     }
 
-    // check if player alive
+    // Checks if the player is alive based on their health
     public boolean isAlive() {
         return health > 0;
     }
 
+    // Calculates the damage dealt by the player using the provided attack dice
     public int calculateDamage(Dice attackDice) {
-        int attackRoll = attackDice.roll();
-        int calculatedDamage =attackRoll * attack;
-        
-        
-        return calculatedDamage;
+        return attackDice.roll() * attack;
     }
-    
 
-    // Method to calculate defense
+    // Calculates the defense of the player using the provided defend dice
     public int calculateDefense(Dice defendDice) {
-        int defendRoll = defendDice.roll();
-        return defendRoll * strength;
+        return defendDice.roll() * strength;
     }
-
 }
